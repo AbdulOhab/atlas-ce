@@ -1,6 +1,6 @@
 import Link from "next/link";
 import type { Metadata } from "next";
-import { ArrowRight, Clock } from "lucide-react";
+import { ArrowRight, Clock, ExternalLink } from "lucide-react";
 import { getDocsInTrack, toMeta } from "@/lib/content";
 import { FDE_ELSEWHERE, withRelated } from "@/lib/related";
 import { accentVar, docHref } from "@/lib/utils";
@@ -18,6 +18,19 @@ const CATEGORY_ORDER = [
   "Building Claude Code From Scratch",
   "Agentic System Design",
   "Platform Engineering",
+];
+
+const EXTERNAL_BOOKS = [
+  {
+    title: "Forward Deployed Engineering book",
+    summary: "An open book on the forward deployed engineer role, opened at chapter 3.",
+    href: "https://aiwithr.github.io/fde_book/#_3",
+  },
+  {
+    title: "Automation book",
+    summary: "An open book on automation, opened at its first chapter.",
+    href: "https://aiwithr.github.io/automation/#_1",
+  },
 ];
 
 export default function FdeIndex() {
@@ -112,6 +125,32 @@ export default function FdeIndex() {
             </ul>
           </section>
         ))}
+
+        <section className="mt-14">
+          <div className="mb-4 flex items-baseline justify-between border-b border-rule pb-2">
+            <h2 className="text-small font-semibold text-ink">Further reading</h2>
+            <span className="font-mono text-micro text-inkFaint">opens in a new tab</span>
+          </div>
+          <ul className="grid gap-3 sm:grid-cols-2 xl:grid-cols-3">
+            {EXTERNAL_BOOKS.map((book) => (
+              <li key={book.href}>
+                <a
+                  href={book.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="group flex h-full flex-col rounded border border-dashed border-rule bg-surface p-4 transition-colors duration-fast hover:border-[color:var(--accent)]"
+                >
+                  <h3 className="text-h3 font-semibold text-ink group-hover:text-[color:var(--accent)]">{book.title}</h3>
+                  <p className="mt-2 flex-1 text-small text-inkMuted">{book.summary}</p>
+                  <span className="mt-4 flex items-center gap-1.5 font-mono text-micro text-inkFaint group-hover:text-[color:var(--accent)]">
+                    Open
+                    <ExternalLink className="h-3 w-3" aria-hidden />
+                  </span>
+                </a>
+              </li>
+            ))}
+          </ul>
+        </section>
       </div>
     </div>
   );
